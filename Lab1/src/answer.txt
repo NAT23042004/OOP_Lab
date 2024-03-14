@@ -1,0 +1,4 @@
+
+It print a message : You've chosen: No
+Change it to: JOptionPane.showConfirmDialog(null,"Yes", "No", JOptionPane.YES_NO_OPTION)
+OR: JOptionPane.showConfirmDialog(null,"I do", "I don't", JOptionPane.YES_NO_OPTION);
