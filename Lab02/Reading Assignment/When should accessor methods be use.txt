@@ -1,0 +1,3 @@
+When should accessor methods be used?
+
+ It can be used for a method to return an object in terms of an interface that the object implements because that interface isolates you from changes to the implementing class because the code interacts with the object through the interface. Even if the internal implementation of the object changes, as long as the interface remains the same, the external code using the object won't be affected
