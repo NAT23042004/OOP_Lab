@@ -1,0 +1,55 @@
+ Unique item in a list
+- When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. 
+For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above requirements (i.e. title for Media; title and length for Track). 
+If the passing object is not an instance of Media, what happens?
+
+If the passing object (obj) is not an instance of Media, the equals() method will return false because the comparison cannot be performed. 
+The equals() method in the Media class includes a check to ensure that obj belongs to the same class as Media using the getClass() method.
+
+
+Reading Assignment: Please answer three questions below:
+- What are the advantages of Polymorphism?
++)Code Reusability:reduces code duplication and promotes code reuse by defining a single interface or base class with common functionalities, you can create subclasses that inherit and specialize that behavior.
++)Flexibility:  allows  to write code that works with objects of different classes as long as they share a common interface or base class.
++)Loose Coupling: code interacts with objects based on their capabilities (interfaces) rather than their specific types.
+
+- How is Inheritance useful to achieve Polymorphism in Java?
++)Subtyping: Subclasses inherit methods and fields from their superclass. This creates a hierarchy of related classes where subclasses are considered subtypes of their superclass.
++)Method Overriding: Subclasses can redefine inherited methods to provide their own specialized implementations. This allows for customization of behavior based on the specific subclass. Overridden methods with the same signature in the subclass enable polymorphism.
++)Common Interface: Inheritance allows multiple subclasses to inherit from a common base class or interface. This establishes a common set of methods and functionalities that all subclasses must implement. Polymorphism works by treating objects of these subclasses as instances of the common interface or base class, allowing them to be used interchangeably where that interface or base class is expected.
+
+- What are the differences between Polymorphism and Inheritance in Java?
+Polymorphism: A concept that allows objects of different classes to be treated in a similar way if they share a common interface or base class. It's about having multiple forms (methods with the same name) that can be used interchangeably.
+Inheritance: A mechanism for creating new classes (subclasses) that inherit properties (methods and fields) from existing classes (superclasses). It's about creating a parent-child relationship between classes.
+
+
+
+Alternatively, to compare items in the cart, instead of using the Comparator class I have 
+mentioned, you can use the Comparable interface1
+and override the compareTo()method. You can 
+refer to the Java docs to see the information of this interface. 
+Suppose we are taking this Comparable interface approach.
+- What class should implement the Comparable interface?
+Media class, Track class (you can implement some others class like : DigitalVideoDisc class, Compact Disc class.). 	
+- In those classes, how should you implement the compareTo()method to reflect the ordering that 
+we want?
+First we check the first argument and then the second one and so on (base on the priority of the arguments).
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this 
+Comparable interface approach?
+No, we can't
+- Suppose the DVDs have a different ordering rule from the other media types, that is by title, then 
+decreasing length, then cost. How would you modify your code to allow this?
+ 
+public int compareTo(Object o) {
+        Dvd other = (Dvd) o;
+        int titleComparison = this.getTitle().compareTo(other.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        } else {
+            int lengthComparison = Integer.compare(this.length, other.length);
+            if (lengthComparison != 0) {
+                return lengthComparison;
+            } else {
+                return Float.compare(this.getCost(), other.getCost());
+            }
+        }
